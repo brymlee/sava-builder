@@ -1,0 +1,12 @@
+public class $className{
+	$fields
+	public static class Builder{
+		$instance
+
+		$methods
+
+		$build
+	}
+
+	$getters
+}
