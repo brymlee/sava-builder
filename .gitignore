@@ -1,2 +1,5 @@
 *.temp
 **/*.class
+**/C.java
+**/Something.java
+stuff.txt

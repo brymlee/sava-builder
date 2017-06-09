@@ -1,16 +1,18 @@
-jarClasspath = lib/guava-21.0.jar:lib/junit-4.12.jar:lib/hamcrest-all-1.3.jar
-sourceClasspath = src/main/java
-resourcesClasspath = src/main/resources
-testClasspath = src/test/java
-classpath = ${jarClasspath}:${sourceClasspath}:${resourcesClasspath}:${testClasspath}
+classpath = $(shell cat Makefile.classPath)
 build: clean build-test
 	javac -cp "${classpath}" src/main/java/sava/*.java 
 build-test:
 	javac -cp "${classpath}" src/test/java/sava/*.java
 run:
-	java -cp "${classpath}" sava.SavaBuilderImpl
+	java -cp "${classpath}" sava.Sava
 test:
-	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaBuilderImplTest 
+	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaTest
 clean:
-	-rm *.tmp *.class C.java
+	-rm *.tmp \
+	*.class \
+	**/C.java \
+	src/main/java/sava/Something*.java \
+	src/main/java/sava/Something*.class \
+	*.java \
+	*.class
 

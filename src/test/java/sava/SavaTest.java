@@ -7,24 +7,30 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 import static org.junit.Assert.*;
+import static sava.Sava.*;
+import static java.util.Optional.*;
 
-public class SavaBuilderImplTest{
+public class SavaTest{
+
+	private static final String CLASSPATH = "lib/guava-21.0.jar:lib/junit-4.12.jar:lib/hamcrest-all-1.3.jar:lib/commons-lang3-3.5.jar:src/main/java:src/main/resources:src/test/java";
 
 	@Test
 	public void createBuilderNewFileTest(){
-		new SavaBuilderImpl()
-			.createSource("Class -> c" +
-				      ",Integer -> i" +    
-				      ",String ->  s");
+		
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		assertTrue(new File("C.java").exists());
 	}
 
 	@Test
 	public void createBuilderCheckClassStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -38,10 +44,10 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckFieldStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -59,10 +65,10 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckInstanceStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -78,10 +84,10 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckBuilderMethodStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -106,10 +112,10 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckBuildMethodStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -125,10 +131,10 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckGettersMethodStructure() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s");
+		final String builderSource = getBuilderSource("Class -> c" +
+							      ",Integer -> i" +    
+						 	      ",String ->  s");
+		writeSource("C.java", builderSource);
 		final File file = new File("C.java");
 		final FileInputStream fileInputStream = new FileInputStream(file);
 		byte[] bytes = new byte[fileInputStream.available()];
@@ -148,22 +154,21 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderCheckCompilation() throws Exception{
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s")
-			.compileBuilder();
+		final String builderExpression = "Class -> c" +
+						  ",Integer -> i" +    
+						  ",String ->  s";
+		putBuilderSource(builderExpression, ".", ".");
+		Runtime.getRuntime().exec("javac C.java").waitFor();
 		assertTrue(new File("C.class").exists());
 	}
 
 	@Test
 	public void createBuilderLoadClass() throws Exception{
-
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s")
-			.compileBuilder();
+		final String builderExpression = "Class -> c" +
+						  ",Integer -> i" +    
+						  ",String ->  s";
+		putBuilderSource(builderExpression, ".", ".");
+		Runtime.getRuntime().exec("javac C.java").waitFor();
 		final URL url = new File(".").toURL();
 		final URL[] urls = new URL[]{url};
 		final ClassLoader classLoader = new URLClassLoader(urls);
@@ -173,12 +178,11 @@ public class SavaBuilderImplTest{
 
 	@Test
 	public void createBuilderInstantiateBuilder() throws Exception{
-
-		new SavaBuilderImpl()
-			.createSource("Class -> c" + 
-				      ",Integer -> i" + 
-				      ",String -> s")
-			.compileBuilder();
+		final String builderExpression = "Class -> c" +
+						  ",Integer -> i" +    
+						  ",String ->  s";
+		putBuilderSource(builderExpression, ".", ".");
+		Runtime.getRuntime().exec("javac C.java").waitFor();
 		final URL url = new File(".").toURL();
 		final URL[] urls = new URL[]{url};
 		final ClassLoader classLoader = new URLClassLoader(urls);
@@ -192,6 +196,20 @@ public class SavaBuilderImplTest{
 		final String s = (String) clazz.getMethod("getS", null).invoke(object, null);
 		assertEquals(Integer.valueOf(1), i);
 		assertEquals("Hello", s);
+	}
+
+	@Test
+	public void createBuilderInClassPath() throws Exception{
+		final String builderExpression = "Class -> sava.Something" +
+						 ",Integer -> i1" +    
+						 ",Integer -> i2 " +
+						 ",Integer -> i3";
+		putBuilderSource(builderExpression
+				,"src/main/java"
+				,"src/main/java");
+		Runtime.getRuntime().exec("javac src/main/java/sava/Something.java").waitFor();
+		assertTrue(new File("src/main/java/sava/Something.java").exists());
+		assertTrue(new File("src/main/java/sava/Something.class").exists());
 	}
 }
 
