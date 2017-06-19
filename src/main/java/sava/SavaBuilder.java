@@ -18,7 +18,7 @@ import static java.util.Arrays.*;
 import static java.util.stream.IntStream.*;
 import static org.apache.commons.lang3.text.WordUtils.*;
 
-public class Sava{
+public class SavaBuilder{
 	private static String classTemplate = getInputStreamAsString(Sava.class
 		.getResourceAsStream("classTemplate.txt"));
 

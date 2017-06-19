@@ -4,7 +4,7 @@ build: clean build-test
 build-test:
 	javac -cp "${classpath}" src/test/java/sava/*.java
 run:
-	java -cp "${classpath}" sava.Sava
+	java -cp "${classpath}" sava.SavaBuilder
 test:
 	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaTest
 clean:

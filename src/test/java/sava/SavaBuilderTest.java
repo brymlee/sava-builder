@@ -7,10 +7,10 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 import static org.junit.Assert.*;
-import static sava.Sava.*;
+import static sava.SavaBuilder.*;
 import static java.util.Optional.*;
 
-public class SavaTest{
+public class SavaBuilderTest{
 
 	private static final String CLASSPATH = "lib/guava-21.0.jar:lib/junit-4.12.jar:lib/hamcrest-all-1.3.jar:lib/commons-lang3-3.5.jar:src/main/java:src/main/resources:src/test/java";
 
