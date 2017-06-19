@@ -19,7 +19,7 @@ import static java.util.stream.IntStream.*;
 import static org.apache.commons.lang3.text.WordUtils.*;
 
 public class SavaBuilder{
-	private static String classTemplate = getInputStreamAsString(Sava.class
+	private static String classTemplate = getInputStreamAsString(SavaBuilder.class
 		.getResourceAsStream("classTemplate.txt"));
 
 	public static String getBuilderSource(final String commaDelimitedString){

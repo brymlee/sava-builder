@@ -1,12 +1,17 @@
+projectName = sava-builder
 classpath = $(shell cat Makefile.classPath)
-build: clean build-test
+build: build-test
 	javac -cp "${classpath}" src/main/java/sava/*.java 
 build-test:
 	javac -cp "${classpath}" src/test/java/sava/*.java
-run:
-	java -cp "${classpath}" sava.SavaBuilder
 test:
-	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaTest
+	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaBuilderTest
+pack: build test clean pack-resource pack-test
+	jar -uvf package/${projectName}.jar src/main/java
+pack-resource:
+	jar -cvf package/${projectName}.jar src/main/resources
+pack-test:
+	jar -uvf package/${projectName}.jar src/test/java
 clean:
 	-rm *.tmp \
 	*.class \
@@ -14,5 +19,6 @@ clean:
 	src/main/java/sava/Something*.java \
 	src/main/java/sava/Something*.class \
 	*.java \
-	*.class
+	*.class \
+	package/*
 
