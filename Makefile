@@ -7,11 +7,11 @@ build-test:
 test:
 	java -cp "${classpath}" org.junit.runner.JUnitCore sava.SavaBuilderTest
 pack: build test clean pack-resource pack-test
-	jar -uvf package/${projectName}.jar src/main/java
-pack-resource:
-	jar -cvf package/${projectName}.jar src/main/resources
-pack-test:
-	jar -uvf package/${projectName}.jar src/test/java
+	cd src/main/java && jar -uvf ../../../package/${projectName}.jar . && cd ../../../ 
+pack-resource: 
+	cd src/main/resources && jar -cvf ../../../package/${projectName}.jar . && cd ../../../
+pack-test: 
+	cd src/test/java && jar -uvf ../../../package/${projectName}.jar . && cd ../../../ 
 clean:
 	-rm *.tmp \
 	*.class \
